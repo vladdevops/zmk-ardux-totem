@@ -7,6 +7,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
 
 /*****************************************
  * Macros for filling in "&none" in the right places in the keymap for re-use needs
@@ -42,7 +43,7 @@
  *   - Update/adjust the key positions using your boards keymap 
  *     - See below for additional details
  *   - YOU MUST SET THE FOLLOWING CONFIG VALUES FOR THIS SETUP TO WORK PROPERLY IN YOUR BOARDS .conf FILE
- *     - CONFIG_ZMK_COMBO_MAX_COMBOS_PER_KEY=16
+ *     - CONFIG_ZMK_COMBO_MAX_COMBOS_PER_KEY=24
  *     - CONFIG_ZMK_COMBO_MAX_KEYS_PER_COMBO=8
  *     - CONFIG_ZMK_COMBO_MAX_PRESSED_COMBOS=8
  *****************************************/
@@ -137,6 +138,12 @@
 &sl { 
 	release-after-ms = <TIMEOUT_STICKY_LEADER_KEY>;
 };
+&mmv {
+	time-to-max-speed-ms = <0>;
+};
+&msc {
+	time-to-max-speed-ms = <0>;
+};
 
 /*****************************************
  * Define custom layer
@@ -209,9 +216,10 @@
 #define LAYER_ID_PARENTHETICALS 3
 #define LAYER_ID_NAVIGATION 4
 #define LAYER_ID_BT_SEL 5
-#define LAYER_ID_CUSTOM 6
-#define LAYER_ID_BIG_SYM 7
-#define LAYER_ID_BIG_FUNCTION 8
+#define LAYER_ID_MOUSE 6
+#define LAYER_ID_CUSTOM 7
+#define LAYER_ID_BIG_SYM 8
+#define LAYER_ID_BIG_FUNCTION 9
 
 /*****************************************
  * Standard ARDUX combo definitions
@@ -246,7 +254,7 @@
 		combo_j           { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_T KEY_S>; bindings = <&kp J>; };
 		combo_w           { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_S>; bindings = <&kp W>; };
 		combo_k           { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_O>; bindings = <&kp K>; };
-		combo_period       { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_Y>; bindings = <&kp PERIOD>; };
+		combo_period      { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_Y>; bindings = <&kp PERIOD>; };
 		combo_comma       { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_I>; bindings = <&kp COMMA>; };
 		combo_slash       { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_O>; bindings = <&kp SLASH>; };
 		combo_exclamation { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_T KEY_I>; bindings = <&kp EXCL>; };
@@ -256,11 +264,16 @@
 		combo_nine  { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_Y>; bindings = <&kp N9>; };
 		combo_zero  { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_I>; bindings = <&kp N0>; };
 
+		combo_num_period { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_A>; bindings = <&kp PERIOD>; };
+		combo_num_comma { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_I KEY_A>; bindings = <&kp COMMA>; };
+		combo_num_enter  { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_A>; bindings = <&kp ENTER>; };
+
 		/*****************************************
 		 * 3 key combos
 		 *****************************************/
 		combo_esc              { timeout-ms = <TIMEOUT_COMBO_3>; key-positions = <KEY_A KEY_R KEY_O>; bindings = <&kp ESC>; };
 		combo_layer_navigation { timeout-ms = <TIMEOUT_COMBO_3>; key-positions = <KEY_R KEY_E KEY_I>; bindings = <&tog LAYER_ID_NAVIGATION>; };
+		combo_layer_mouse      { timeout-ms = <TIMEOUT_COMBO_3>; key-positions = <KEY_A KEY_T KEY_Y>; bindings = <&tog LAYER_ID_MOUSE>; };
 
 		combo_m            { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_3>; key-positions = <KEY_Y KEY_I KEY_O>; bindings = <&kp M>; };
 		combo_d            { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_3>; key-positions = <KEY_A KEY_R KEY_T>; bindings = <&kp D>; };
@@ -349,6 +362,22 @@
 			>;
 		};
 		#endif
+		#if defined ARDUX_BIG
+		numbers {
+			display-name = "Number";
+			bindings = <
+				BIG_LEADING_NONES
+				&kp MINUS &kp N1 &kp N2 &kp N3 &mo LAYER_ID_NUMBERS
+				BIG_BETWEEN_ROW_ONE_TWO_NONES
+				&kp SLASH &kp N4 &kp N5 &kp N6 &none
+				BIG_BETWEEN_ROW_TWO_THREE_NONES
+				&kp COLON &kp TAB &none &none &none
+				BIG_BETWEEN_ROW_THREE_THUMBS
+				&kp SPACE &kp UNDERSCORE &kp TAB
+				BIG_TRAILING_NONES
+			>;
+		};
+		#else
 		numbers {
 			display-name = "Number";
 			bindings = <
@@ -359,6 +388,7 @@
 				TRAILING_NONES
 			>;
 		};
+		#endif
 		symbols {
 			display-name = "Symbol";
 			bindings = <
@@ -389,6 +419,22 @@
 				TRAILING_NONES
 			>;
 		};
+		#if defined ARDUX_BIG
+		bt {
+			display-name = "BT";
+			bindings = <
+				BIG_LEADING_NONES
+				&none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 ARDUX_BT_TOP
+				BIG_BETWEEN_ROW_ONE_TWO_NONES
+				&none &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5 ARDUX_BT_BOTTOM
+				BIG_BETWEEN_ROW_TWO_THREE_NONES
+				&none &none &none &none &none
+				BIG_BETWEEN_ROW_THREE_THUMBS
+				&none &sys_reset &bootloader
+				BIG_TRAILING_NONES
+			>;
+		};
+		#else
 		bt {
 			display-name = "BT";
 			bindings = <
@@ -396,6 +442,17 @@
 				&bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 ARDUX_BT_TOP
 				MIDDLE_NONES
 				&bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5 ARDUX_BT_BOTTOM
+				TRAILING_NONES
+			>;
+		};
+		#endif
+		mouse {
+			display-name = "Mouse";
+			bindings = <
+				LEADING_NONES
+				&mkp LCLK                                        &mmv MOVE_UP    &mkp RCLK        &msc SCRL_UP
+				MIDDLE_NONES
+				&mmv MOVE_LEFT                                   &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_DOWN
 				TRAILING_NONES
 			>;
 		};
@@ -472,6 +529,22 @@
 			>;
 		};
 		#endif
+		#if defined ARDUX_BIG
+		numbers {
+			display-name = "Number";
+			bindings = <
+				BIG_LEADING_NONES
+				&mo LAYER_ID_NUMBERS &kp N3 &kp N2 &kp N1 &kp MINUS
+				BIG_BETWEEN_ROW_ONE_TWO_NONES
+				&none &kp N6 &kp N5 &kp N4 &kp SLASH
+				BIG_BETWEEN_ROW_TWO_THREE_NONES
+				&none &none &none &kp TAB &kp COLON
+				BIG_BETWEEN_ROW_THREE_THUMBS
+				&kp TAB &kp UNDERSCORE &kp SPACE
+				BIG_TRAILING_NONES
+			>;
+		};
+		#else
 		numbers {
 			display-name = "Number";
 			bindings = <
@@ -482,6 +555,7 @@
 				TRAILING_NONES
 			>;
 		};
+		#endif
 		symbols {
 			display-name = "Symbol";
 			bindings = <
@@ -512,6 +586,22 @@
 				TRAILING_NONES
 			>;
 		};
+		#if defined ARDUX_BIG
+		bt {
+			display-name = "BT";
+			bindings = <
+				BIG_LEADING_NONES
+				ARDUX_BT_TOP    &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0 &none
+				BIG_BETWEEN_ROW_ONE_TWO_NONES
+				ARDUX_BT_BOTTOM &bt BT_SEL 5 &bt BT_SEL 4 &bt BT_SEL 3 &none
+				BIG_BETWEEN_ROW_TWO_THREE_NONES
+				&none &none &none &none &none
+				BIG_BETWEEN_ROW_THREE_THUMBS
+				&bootloader &sys_reset &none
+				BIG_TRAILING_NONES
+			>;
+		};
+		#else
 		bt {
 			display-name = "BT";
 			bindings = <
@@ -519,6 +609,17 @@
 				ARDUX_BT_TOP    &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0
 				MIDDLE_NONES
 				ARDUX_BT_BOTTOM &bt BT_SEL 5 &bt BT_SEL 4 &bt BT_SEL 3
+				TRAILING_NONES
+			>;
+		};
+		#endif
+		mouse {
+			display-name = "Mouse";
+			bindings = <
+				LEADING_NONES
+				&msc SCRL_UP                                   &mkp RCLK  &mmv MOVE_UP    &mkp LCLK
+				MIDDLE_NONES
+				&msc SCRL_DOWN                                   &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT
 				TRAILING_NONES
 			>;
 		};
