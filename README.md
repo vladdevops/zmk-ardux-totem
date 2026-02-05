@@ -1,3 +1,20 @@
+# Build
+```
+docker run --rm -it   -v $(pwd):/workspace   -w /workspace   zmkfirmware/zmk-build-arm:stable   bash
+```
+```
+west init -l config
+```
+```
+west update
+```
+```
+rm -rf build && west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=totem_left_big -DZMK_CONFIG="$(pwd)/config"
+```
+```
+rm -rf build && west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=totem_left_big -DZMK_CONFIG="$(pwd)/config" -DSNIPPET=studio-rpc-usb-uart
+```
+
 # ZMK ARDUX Implementation
 
 This repo contains the [ZMK](https://zmkfirmware.dev/) ARDUX implementation and pre-built firmware for boards that have been setup to use ARDUX by the core ARDUX development team.
