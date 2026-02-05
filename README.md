@@ -9,6 +9,9 @@ west init -l config
 west update
 ```
 ```
+west zephyr-export
+```
+```
 rm -rf build && west build -s zmk/app -b seeeduino_xiao_ble -- -DSHIELD=totem_left_big -DZMK_CONFIG="$(pwd)/config"
 ```
 ```
