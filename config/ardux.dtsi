@@ -185,6 +185,15 @@
 #define ARDUX_BASE_I I
 #define ARDUX_BASE_O O
 
+#define RISATENO_BASE_J J
+#define RISATENO_BASE_T T
+#define RISATENO_BASE_F F
+#define RISATENO_BASE_B B
+#define RISATENO_BASE_Y Y
+#define RISATENO_BASE_N N
+#define RISATENO_BASE_C C
+#define RISATENO_BASE_H H
+
 /*****************************************
  * Layer IDs used by the ARDUX keymap
  * Do NOT change these and do NOT change the order of the layers as shown below
@@ -200,6 +209,7 @@
 #define LAYER_ID_CUSTOM 7
 #define LAYER_ID_BIG_SYM 8
 #define LAYER_ID_BIG_FUNCTION 9
+#define LAYER_ID_BASE_RU 7
 
 /*****************************************
  * Standard ARDUX combo definitions
@@ -232,6 +242,28 @@
 		combo_comma       { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_I>; bindings = <&kp COMMA>; };
 		combo_slash       { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_O>; bindings = <&kp SLASH>; };
 		combo_exclamation { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_T KEY_I>; bindings = <&kp EXCL>; };
+
+		combo_ru_d           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_S>; bindings = <&kp D>; };
+		combo_ru_k           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_O>; bindings = <&kp K>; };
+		combo_ru_r           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_T KEY_S>; bindings = <&kp L>; };
+		combo_ru_g           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_R>; bindings = <&kp G>; };
+		combo_ru_e           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_I>; bindings = <&kp E>; };
+		combo_ru_z           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_T KEY_R>; bindings = <&kp Z>; };
+		combo_ru_s           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_O>; bindings = <&kp S>; };
+		combo_ru_u           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_R KEY_S>; bindings = <&kp U>; };
+		combo_ru_p           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_T>; bindings = <&kp P>; };
+		combo_ru_period      { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_Y>; bindings = <&kp PERIOD>; };
+		combo_ru_x           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_O>; bindings = <&kp X>; };
+		combo_ru_q           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_S KEY_Y>; bindings = <&kp Q>; };
+		combo_ru_rbkt           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_I>; bindings = <&kp RBKT>; };
+		combo_ru_semi           { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_R KEY_O>; bindings = <&kp SEMI>; };
+		combo_ru_i          { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_T>; bindings = <&kp I>; };
+		combo_ru_comma       { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_S KEY_I>; bindings = <&kp COMMA>; };
+		combo_ru_w       { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_Y>; bindings = <&kp W>; };
+		combo_ru_o       { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_T>; bindings = <&kp O>; };
+		combo_ru_quote       { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_O KEY_T>; bindings = <&kp SINGLE_QUOTE>; };
+		combo_ru_a      { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_R>; bindings = <&kp A>; };
+		combo_ru_lbkt      { layers = <LAYER_ID_BASE_RU>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_T KEY_O>; bindings = <&kp LBKT>; };
 
 		combo_seven { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_R>; bindings = <&kp N7>; };
 		combo_eight { layers = <LAYER_ID_NUMBERS>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_R KEY_T>; bindings = <&kp N8>; };
@@ -291,6 +323,11 @@
 		layer_custom_kp: layer_custom_kp { compatible = "zmk,behavior-hold-tap"; display-name = "layer_custom_kp";
 						#binding-cells = <2>; tapping-term-ms = <TIMEOUT_LAYER_HOLD>; flavor = "tap-preferred";
 						bindings = <&mo>, <&kp>; };
+		tog_on: toggle_layer_on_only {
+                        compatible = "zmk,behavior-toggle-layer";
+                        #binding-cells = <1>;
+                        display-name = "Toggle Layer On";
+                        toggle-mode = "on"; };
 	};
 };
 
@@ -437,7 +474,21 @@
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
 				&layer_custom_kp LAYER_ID_CUSTOM ARDUX_BASE_O      &kp ARDUX_BASE_I     &kp ARDUX_BASE_Y     &layer_symbols_kp LAYER_ID_SYMBOLS ARDUX_BASE_E               &kp TAB
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&kp LGUI                                           &none                &kp AT               &kp DEL                                                       &kp EQUAL &kp LALT
+				&kp LGUI                                           &tog_on LAYER_ID_BASE_RU    &kp AT               &kp DEL                                                       &kp EQUAL &kp LALT
+				BIG_BETWEEN_ROW_THREE_THUMBS
+				&mo LAYER_ID_BIG_SYM                               &kp LCTRL            &kp LSHFT
+				BIG_TRAILING_NONES
+			>;
+		};
+		base-ru {
+			display-name = "*RU*";
+gut			bindings = <
+				BIG_LEADING_NONES
+				&layer_numbers_kp LAYER_ID_NUMBERS RISATENO_BASE_B &kp RISATENO_BASE_F  &kp RISATENO_BASE_T  &layer_parentheticals_kp LAYER_ID_PARENTHETICALS RISATENO_BASE_J &kp MINUS
+				BIG_BETWEEN_ROW_ONE_TWO_NONES
+				&layer_custom_kp LAYER_ID_CUSTOM RISATENO_BASE_H   &kp RISATENO_BASE_C  &kp RISATENO_BASE_N  &layer_symbols_kp LAYER_ID_SYMBOLS RISATENO_BASE_Y               &kp TAB
+				BIG_BETWEEN_ROW_TWO_THREE_NONES
+				&kp LGUI                                           &tog_on LAYER_ID_BASE &kp AT               &kp DEL                                                          &kp EQUAL &kp LALT
 				BIG_BETWEEN_ROW_THREE_THUMBS
 				&mo LAYER_ID_BIG_SYM                               &kp LCTRL            &kp LSHFT
 				BIG_TRAILING_NONES
