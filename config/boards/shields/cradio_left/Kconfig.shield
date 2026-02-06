@@ -1,8 +1,0 @@
-# Copyright (c) 2020 The ZMK Contributors
-# SPDX-License-Identifier: MIT
-
-config SHIELD_CRADIO_ARDUX_LEFT
-	def_bool $(shields_list_contains,cradio_ardux_left)
-
-config SHIELD_CRADIO_ARDUX_THUMB_LEFT
-	def_bool $(shields_list_contains,cradio_ardux_thumb_left)

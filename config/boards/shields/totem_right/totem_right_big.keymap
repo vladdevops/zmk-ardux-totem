@@ -10,7 +10,6 @@
 
 // Enable ARDUX Right
 #define ARDUX_RIGHT 1
-#define ARDUX_BIG 1
 
 // ARTS Row
 #define KEY_A 1
