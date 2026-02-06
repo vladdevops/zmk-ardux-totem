@@ -236,12 +236,12 @@
 		combo_layer_functions { key-positions = <KEY_F_TOP KEY_F_BOTTOM>; bindings = <&sl LAYER_ID_BIG_FUNCTION>; };
 		#endif
 		combo_enter      { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_A KEY_E>; bindings = <&kp ENTER>; };
-		combo_control    { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_S>; bindings = <&sk LCTRL>; };
-		combo_gui        { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_S>; bindings = <&sk LGUI>; };
-		combo_alt        { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_I KEY_S>; bindings = <&sk LALT>; };
+//		combo_control    { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_S>; bindings = <&sk LCTRL>; };
+//		combo_gui        { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_Y KEY_S>; bindings = <&sk LGUI>; };
+//		combo_alt        { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_I KEY_S>; bindings = <&sk LALT>; };
 		combo_backspace  { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_R>; bindings = <&kp BACKSPACE>; };
 		combo_delete     { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_I KEY_R>; bindings = <&kp DELETE>; };
-		combo_shift_lock { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_R KEY_Y>; bindings = <&kt LSHFT>; };
+//		combo_shift_lock { timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_R KEY_Y>; bindings = <&kt LSHFT>; };
 
 		combo_b           { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_O>; bindings = <&kp B>; };
 		combo_c           { layers = <LAYER_ID_BASE>; timeout-ms = <TIMEOUT_COMBO_2>; key-positions = <KEY_E KEY_Y>; bindings = <&kp C>; };
@@ -288,7 +288,7 @@
 		 *****************************************/
 		combo_tab             { timeout-ms = <TIMEOUT_COMBO_4>; key-positions = <KEY_A KEY_R KEY_T KEY_O>; bindings = <&kp TAB>; };
 		combo_space           { timeout-ms = <TIMEOUT_COMBO_4>; key-positions = <KEY_E KEY_Y KEY_I KEY_O>; bindings = <&kp SPACE>; };
-		combo_shift           { timeout-ms = <TIMEOUT_COMBO_4>; key-positions = <KEY_E KEY_R KEY_T KEY_S>; bindings = <&sk LSHFT>; };
+//		combo_shift           { timeout-ms = <TIMEOUT_COMBO_4>; key-positions = <KEY_E KEY_R KEY_T KEY_S>; bindings = <&sk LSHFT>; };
 		combo_layer_bt_select { timeout-ms = <TIMEOUT_COMBO_4>; key-positions = <KEY_A KEY_E KEY_S KEY_O>; bindings = <&tog LAYER_ID_BT_SEL>; };
 		combo_bt_clr          { timeout-ms = <TIMEOUT_COMBO_4>; key-positions = <KEY_R KEY_Y KEY_T KEY_I>; bindings = <&bt BT_CLR>; };
 
@@ -318,9 +318,9 @@
 		layer_custom_kp: layer_custom_kp { compatible = "zmk,behavior-hold-tap"; display-name = "layer_custom_kp";
 						#binding-cells = <2>; tapping-term-ms = <TIMEOUT_LAYER_HOLD>; flavor = "tap-preferred";
 						bindings = <&mo>, <&kp>; };
-		ctrl_alt_kp: ctrl_alt_kp { compatible = "zmk,behavior-hold-tap"; display-name = "ctrl_alt_kp";
-						#binding-cells = <2>; tapping-term-ms = <TIMEOUT_LAYER_HOLD>; flavor = "tap-preferred";
-						bindings = <&sk>, <&sk>; };
+//		ctrl_alt_kp: ctrl_alt_kp { compatible = "zmk,behavior-hold-tap"; display-name = "ctrl_alt_kp";
+//						#binding-cells = <2>; tapping-term-ms = <TIMEOUT_LAYER_HOLD>; flavor = "tap-preferred";
+//						bindings = <&sk>, <&sk>; };
 	};
 };
 
@@ -339,11 +339,11 @@
 				BIG_LEADING_NONES
 				&kp MINUS            &layer_parentheticals_kp LAYER_ID_PARENTHETICALS ARDUX_BASE_A    &kp ARDUX_BASE_R     &kp ARDUX_BASE_T     &layer_numbers_kp LAYER_ID_NUMBERS ARDUX_BASE_S
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
-				&sk LSHFT            &layer_symbols_kp LAYER_ID_SYMBOLS ARDUX_BASE_E                  &kp ARDUX_BASE_Y     &kp ARDUX_BASE_I     &layer_custom_kp LAYER_ID_CUSTOM ARDUX_BASE_O
+				&kp TAB              &layer_symbols_kp LAYER_ID_SYMBOLS ARDUX_BASE_E                  &kp ARDUX_BASE_Y     &kp ARDUX_BASE_I     &layer_custom_kp LAYER_ID_CUSTOM ARDUX_BASE_O
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&kp TAB              &kp EQUAL                                                         &kp DEL               &kp AT                &ctrl_alt_kp LALT LCTRL
+				&kp LSHFT            &kp EQUAL                                                        &kp DEL              &kp AT               &none
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&kp ENTER            &kp SPACE                                                         &mo LAYER_ID_BIG_SYM
+				&kp LGUI             &kp LALT &kp LCTRL                                               &mo LAYER_ID_BIG_SYM
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -373,7 +373,7 @@
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
 				&kp COLON &kp TAB &none &none &none
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&kp SPACE &kp UNDERSCORE &kp TAB
+				&kp LGUI &kp LALT &kp LCTRL &none
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -409,7 +409,23 @@
 				TRAILING_NONES
 			>;
 		};
+        #if defined ARDUX_BIG
 		navigation {
+			display-name = "Nav";
+			bindings = <
+				BIG_LEADING_NONES
+				&none                                               &kp HOME &kp UP    &kp END   &kp PG_UP
+				BIG_BETWEEN_ROW_ONE_TWO_NONES
+				&none                                               &kp LEFT &kp DOWN  &kp RIGHT &kp PG_DN
+				BIG_BETWEEN_ROW_TWO_THREE_NONES
+				&kp LSHFT                                           &kp EQUAL &kp DEL  &kp AT    &none
+                BIG_BETWEEN_ROW_THREE_THUMBS
+                &kp LGUI                                            &kp LALT &kp LCTRL &none
+                BIG_TRAILING_NONES
+            >;
+		};
+		#else
+        navigation {
 			display-name = "Nav";
 			bindings = <
 				LEADING_NONES
@@ -419,6 +435,7 @@
 				TRAILING_NONES
 			>;
 		};
+        #endif
 		#if defined ARDUX_BIG
 		bt {
 			display-name = "BT";
@@ -430,7 +447,7 @@
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
 				&none &none &none &none &none
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&none &sys_reset &bootloader
+				&kp LGUI &none &sys_reset &bootloader
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -468,7 +485,7 @@
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
 				&kp PIPE  &kp PRCNT &kp LBKT &kp RBKT &kp ASTRK
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&trans    &kp SEMI  &none
+				&kp LGUI  &trans    &kp SEMI &none
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -476,13 +493,13 @@
 			display-name = "*Func*";
 			bindings = <
 				BIG_LEADING_NONES
-				&none  &kp F1 &kp F2  &kp F3  &kp F4
+				&none      &kp F1 &kp F2  &kp F3  &kp F4
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
-				&none  &kp F5 &kp F6  &kp F7  &kp F8
+				&none      &kp F5 &kp F6  &kp F7  &kp F8
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&none  &kp F9 &kp F10 &kp F11 &kp F12
+				&kp LSHFT  &kp F9 &kp F10 &kp F11 &kp F12
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&trans &none   &none
+				&kp LGUI   &trans &kp LCTRL &kp LALT
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -508,9 +525,9 @@
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
 				&layer_custom_kp LAYER_ID_CUSTOM ARDUX_BASE_O      &kp ARDUX_BASE_I     &kp ARDUX_BASE_Y     &layer_symbols_kp LAYER_ID_SYMBOLS ARDUX_BASE_E               &sk LSHFT
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&ctrl_alt_kp LALT LCTRL                             &kp AT                &kp DEL               &kp EQUAL                                                      &kp TAB
+				&kp LGUI                                           &none                &kp AT               &kp DEL                                                       &kp EQUAL &kp LSHFT
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&mo LAYER_ID_BIG_SYM                                &kp SPACE             &kp ENTER
+				&mo LAYER_ID_BIG_SYM                               &kp LCTRL            &kp LALT
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -538,9 +555,9 @@
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
 				&none &kp N6 &kp N5 &kp N4 &kp SLASH
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&none &none &none &kp TAB &kp COLON
+				&kp LGUI &none &none &none &kp TAB &kp COLON
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&kp TAB &kp UNDERSCORE &kp SPACE
+				&none &kp LCTRL &kp LALT
 				BIG_TRAILING_NONES
 			>;
 		};
@@ -576,6 +593,22 @@
 				TRAILING_NONES
 			>;
 		};
+		#if defined ARDUX_BIG
+        navigation {
+            display-name = "Nav";
+            bindings = <
+                BIG_LEADING_NONES
+                &kp PG_UP                                  &kp HOME  &kp UP   &kp END   &none
+                BIG_BETWEEN_ROW_ONE_TWO_NONES
+                &kp PG_DN                                  &kp LEFT  &kp DOWN &kp RIGHT &none
+                BIG_BETWEEN_ROW_TWO_THREE_NONES
+                &kp LGUI                                   &none     &kp AT   &kp DEL   &kp EQUAL &kp LSHFT
+                BIG_BETWEEN_ROW_THREE_THUMBS
+                &none &kp LCTRL &kp LALT
+                BIG_TRAILING_NONES
+            >;
+        };
+        #else
 		navigation {
 			display-name = "Nav";
 			bindings = <
@@ -586,6 +619,7 @@
 				TRAILING_NONES
 			>;
 		};
+		#endif
 		#if defined ARDUX_BIG
 		bt {
 			display-name = "BT";
@@ -595,7 +629,7 @@
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
 				ARDUX_BT_BOTTOM &bt BT_SEL 5 &bt BT_SEL 4 &bt BT_SEL 3 &none
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&none &none &none &none &none
+				&none &none &none &none &none &none
 				BIG_BETWEEN_ROW_THREE_THUMBS
 				&bootloader &sys_reset &none
 				BIG_TRAILING_NONES
@@ -617,9 +651,9 @@
 			display-name = "Mouse";
 			bindings = <
 				LEADING_NONES
-				&msc SCRL_UP                                   &mkp RCLK  &mmv MOVE_UP    &mkp LCLK
+				&msc SCRL_UP                                   &mkp RCLK       &mmv MOVE_UP    &mkp LCLK
 				MIDDLE_NONES
-				&msc SCRL_DOWN                                   &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT
+				&msc SCRL_DOWN                                 &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT
 				TRAILING_NONES
 			>;
 		};
@@ -633,7 +667,7 @@
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
 				&kp AMPS  &kp LPAR &kp RPAR &kp DLLR  &kp BSLH
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&kp ASTRK &kp LBKT &kp RBKT &kp PRCNT &kp PIPE
+				&kp LGUI &kp ASTRK &kp LBKT &kp RBKT &kp PRCNT &kp PIPE
 				BIG_BETWEEN_ROW_THREE_THUMBS
 				&none     &kp SEMI &none
 				BIG_TRAILING_NONES
@@ -643,13 +677,13 @@
 			display-name = "*Func*";
 			bindings = <
 				BIG_LEADING_NONES
-				&kp F4  &kp F3  &kp F2  &kp F1  &none
+				&kp F4   &kp F3    &kp F2    &kp F1  &none
 				BIG_BETWEEN_ROW_ONE_TWO_NONES
-				&kp F8  &kp F7  &kp F6  &kp F5  &none
+				&kp F8   &kp F7    &kp F6    &kp F5  &none
 				BIG_BETWEEN_ROW_TWO_THREE_NONES
-				&kp F12 &kp F11 &kp F10 &kp F9 &none
+				&kp LGUI &kp F12   &kp F11   &kp F10 &kp F9 &none
 				BIG_BETWEEN_ROW_THREE_THUMBS
-				&none   &none   &none
+                &none    &kp LCTRL &kp LALT
 				BIG_TRAILING_NONES
 			>;
 		};
