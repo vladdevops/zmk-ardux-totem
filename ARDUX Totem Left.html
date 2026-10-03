@@ -1,0 +1,277 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>ARDUX Totem Left</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Jost:wght@400;500;600&display=swap">
+<style>
+/* Layout: one cheat-sheet column — header, base layer, combo panel, hold layers, locks, Totem extras.
+   Single deliberate dark look copied from the ARDUX 0.9 poster: black ground with teal polka dots, teal panels framed in cream. */
+:root{
+  --ground:#000;
+  --dot:#0d3f4a;
+  --panel:#00b2cc;
+  --frame:#f6dc8c;
+  --key:#fff;
+  --ink:#000;
+  --held:#00b2cc;
+  --muted:#8fd3dd;
+  --display:"Archivo Black","Arial Black",Impact,sans-serif;
+  --body:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:radial-gradient(circle,var(--dot) 0 34%,transparent 35%);
+  background-size:56px 56px;
+  color:var(--key);font-family:var(--body);font-size:15px;line-height:1.4;
+}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:28px 48px;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px}
+h1{font-family:var(--body);font-weight:400;font-size:clamp(56px,11vw,120px);line-height:.9;margin:0;color:var(--frame);letter-spacing:.02em}
+.sub{color:var(--frame);font-size:15px;max-width:42ch;text-align:right}
+.sub b{font-weight:600}
+h2{font-family:var(--body);font-weight:500;font-size:26px;margin:0;letter-spacing:.04em;text-transform:uppercase;text-wrap:balance}
+h3{font-family:var(--body);font-weight:600;font-size:15px;margin:0;letter-spacing:.08em;text-transform:uppercase}
+.section{display:flex;flex-direction:column;gap:14px}
+.section > h2{color:var(--frame)}
+.note{color:var(--muted);font-size:14px;margin:0;max-width:70ch}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.92em;color:var(--frame)}
+
+/* Physical Totem left half: 6 columns, row 3 has the extra outer key */
+.board{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;max-width:520px}
+.k{background:var(--key);color:var(--ink);border:2px solid var(--ink);border-radius:5px;min-height:58px;padding:4px 3px;
+   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:0;outline:2px solid var(--key)}
+.k .t{font-weight:600;font-size:15px;line-height:1.1;overflow-wrap:anywhere}
+.k .t.big{font-family:var(--display);font-size:24px;font-weight:400}
+.k .h{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#007a8c;margin-top:3px;line-height:1.1}
+.k.none{background:transparent;outline-color:#555;border-color:transparent;color:#777}
+.k.held{background:var(--held);color:var(--ink)}
+.k.held .t{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.k.mod{background:#e7e7e7}
+.thumbgap{grid-column:span 3}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:14px;height:14px;border-radius:3px;border:1px solid #fff;display:inline-block}
+
+/* Combo panel */
+.panel{background:var(--panel);border:10px solid var(--frame);color:var(--ink);padding:18px;display:flex;flex-direction:column;gap:18px}
+.panel h2{color:var(--ink)}
+.panel-head{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.stra{display:grid;grid-template-columns:repeat(4,46px);gap:4px;padding:6px;background:var(--ink);border-radius:8px}
+.stra div{background:var(--key);border-radius:5px;height:46px;display:grid;place-items:center;font-family:var(--display);font-size:24px}
+.panel-head p{margin:0;max-width:44ch;font-size:14px}
+.group{display:flex;flex-direction:column;gap:8px}
+.group + .group{border-top:4px solid var(--frame);padding-top:16px}
+.combos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 14px}
+.combo{display:flex;align-items:center;gap:10px;min-width:0}
+.combo .lbl{font-weight:600;font-size:16px;min-width:0;line-height:1.1}
+.combo .lbl.letter{font-family:var(--display);font-size:24px;font-weight:400;width:26px;text-align:center}
+.combo .lbl small{display:block;font-weight:500;font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.mini{display:grid;grid-template-columns:repeat(4,14px);grid-template-rows:repeat(2,11px);gap:2px;padding:2px;background:var(--ink);flex:none}
+.mini i{background:var(--key)}
+.mini i.on{background:var(--ink);outline:1px solid var(--ink)}
+.combos.wide{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+
+/* 4x2 layer cards */
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.lay{display:flex;flex-direction:column;gap:8px;min-width:0}
+.lay h3{color:var(--frame)}
+.lay .how{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;max-width:300px}
+.g4 .k{min-height:50px}
+.extra{font-size:13px;color:var(--key);display:flex;flex-wrap:wrap;gap:4px 12px}
+.extra b{color:var(--frame);font-weight:600}
+.howmini{display:inline-grid;grid-template-columns:repeat(4,10px);grid-template-rows:repeat(2,8px);gap:2px;padding:2px;background:#fff}
+.howmini i{background:#000}
+.howmini i.on{background:var(--held)}
+
+.full{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px}
+.diff{border:2px solid var(--frame);padding:14px 18px;display:flex;flex-direction:column;gap:6px}
+.diff ul{margin:0;padding-left:18px;color:var(--key);font-size:14px;display:flex;flex-direction:column;gap:4px;max-width:80ch}
+footer{color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+footer a{color:var(--frame)}
+@media (max-width:480px){.k{min-height:50px}.k .t{font-size:13px}.k .t.big{font-size:19px}.k .h{font-size:9px}.sub{text-align:left}}
+
+/* compact 3-column sheet that fits a 1440px-high screen */
+.wrap{max-width:1760px;gap:16px;padding-block:14px 18px}
+h1{font-size:clamp(44px,6vw,72px)}
+h2{font-size:19px}
+h3{font-size:13px}
+.section{gap:8px}
+.cols{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+.col{display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (min-width:1150px){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr) minmax(0,1fr);align-items:start}}
+.board{max-width:440px;gap:4px}
+.k{min-height:42px;padding:2px}
+.k .t{font-size:13px}
+.k .t.big{font-size:20px}
+.k .h{font-size:9.5px;margin-top:1px}
+.k.held .t{font-size:10px}
+.layers{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.lay{gap:5px}
+.lay.wide{grid-column:1/-1}
+.g4 .k{min-height:38px}
+.g4 .k .t{font-size:11.5px}
+.extra{font-size:12px;gap:2px 10px}
+.panel{padding:12px 14px;gap:10px;border-width:8px}
+.panel-head{gap:10px 18px}
+.stra{grid-template-columns:repeat(4,32px);gap:3px;padding:4px}
+.stra div{height:32px;font-size:17px;border-radius:4px}
+.panel-head p{font-size:13px}
+.group{gap:5px}
+.group + .group{padding-top:9px;border-top-width:3px}
+.combos{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:5px 10px}
+.combos.wide{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.combo{gap:7px}
+.combo .lbl{font-size:14px}
+.combo .lbl.letter{font-size:19px;width:20px}
+.combo .lbl small{font-size:10px}
+.mini{grid-template-columns:repeat(4,12px);grid-template-rows:repeat(2,9px)}
+.note{font-size:12.5px}
+.legend{font-size:12px}
+.diff{padding:10px 14px;gap:4px}
+.diff ul{font-size:12.5px;gap:2px}
+footer{font-size:12px}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>LEFT</h1>
+    <p class="sub">ARDUX на Totem, левая половина, <b>BIG</b>-раскладка из <code>vladdevops/zmk-ardux-totem</code> (<code>ardux.dtsi</code>, ARDUX_LEFT).</p>
+  </header>
+
+  <div class="cols">
+    <div class="col">
+      <section class="section">
+        <h2>Основной слой</h2>
+        <div class="board" id="base"></div>
+        <div class="legend">
+          <span>подпись снизу — удержание (200 мс)</span>
+          <span><i class="sw" style="background:#00b2cc"></i>держать</span>
+          <span><i class="sw" style="background:#e7e7e7"></i>модификаторы</span>
+        </div>
+      </section>
+      <section class="section">
+        <h2>Удержание</h2>
+        <div class="layers" id="holds"></div>
+        <p class="note">Пока слой активен, внутренняя колонка, нижний ряд и большие пальцы не работают.</p>
+      </section>
+    </div>
+
+    <section class="panel col">
+      <div class="panel-head">
+        <div class="stra"><div>S</div><div>T</div><div>R</div><div>A</div><div>O</div><div>I</div><div>Y</div><div>E</div></div>
+        <div>
+          <h2>Combos</h2>
+          <p>Чёрные клетки — нажать вместе (175 мс). Мизинец слева, указательный справа.</p>
+        </div>
+      </div>
+      <div class="group"><h3>Буквы</h3><div class="combos" id="c-letters"></div></div>
+      <div class="group"><h3>Пунктуация</h3><div class="combos" id="c-punct"></div></div>
+      <div class="group"><h3>Редактирование</h3><div class="combos wide" id="c-edit"></div></div>
+      <div class="group"><h3>Слои и система</h3><div class="combos wide" id="c-sys"></div></div>
+    </section>
+
+    <div class="col">
+      <section class="section">
+        <h2>Замки</h2>
+        <div class="layers" id="locks"></div>
+        <p class="note">Включаются и выключаются тем же комбо, с любого слоя.</p>
+      </section>
+      <section class="section">
+        <h2>Только на Totem</h2>
+        <div class="layers" id="bigs"></div>
+      </section>
+      <div class="diff">
+        <h3 style="color:var(--frame)">Отличия от постера ARDUX 0.9</h3>
+        <ul>
+          <li>Нет комбо Shift / Ctrl / GUI / Alt / Shift once / Clear — модификаторы физические.</li>
+          <li>«?» не комбо, а на слое символов (держать E).</li>
+          <li>Другие наборы на слоях символов, скобок и Custom.</li>
+          <li>Добавлены Caps Lock, BT-слой, BT Clear, Big Symbol, F1–F12.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Источник: <a href="https://github.com/vladdevops/zmk-ardux-totem" target="_blank" rel="noopener">github.com/vladdevops/zmk-ardux-totem</a></span>
+    <span>Оригинал: <a href="https://www.ardux.io" target="_blank" rel="noopener">ardux.io</a></span>
+  </footer>
+</div>
+
+<script>
+/* positions in hand order: top S T R A, bottom O I Y E */
+const P={S:0,T:1,R:2,A:3,O:4,I:5,Y:6,E:7};
+const mini=(keys,cls='mini',on='on')=>{
+  const set=new Set(keys.map(k=>P[k]));
+  return `<span class="${cls}">${Array.from({length:8},(_,i)=>`<i class="${set.has(i)?on:''}"></i>`).join('')}</span>`;
+};
+const combo=(lbl,keys,letter,small)=>`<div class="combo">${mini(keys)}<span class="lbl${letter?' letter':''}">${lbl}${small?`<small>${small}</small>`:''}</span></div>`;
+
+const letters=[['B','EO'],['C','EY'],['D','ART'],['F','AR'],['G','RT'],['H','EI'],['J','TS'],['K','YO'],['L','EYI'],['M','YIO'],['N','IO'],['P','EIO'],['Q','ATS'],['U','YI'],['V','RS'],['W','AS'],['X','RTS'],['Z','ARTS']];
+document.getElementById('c-letters').innerHTML=letters.map(([l,k])=>combo(l,[...k],true)).join('');
+const punct=[['.','AY'],[',','AI'],['/','AO'],['!','TI'],["'",'AYI']];
+document.getElementById('c-punct').innerHTML=punct.map(([l,k])=>combo(l,[...k],true)).join('');
+const edit=[['Enter','AE','любой слой'],['Backspace','ER','любой слой'],['Delete','IR','любой слой'],['Esc','ARO','любой слой'],['Tab','ARTO','любой слой'],['Space','EYIO','любой слой'],['Caps Lock','OIYA','основной слой']];
+document.getElementById('c-edit').innerHTML=edit.map(([l,k,s])=>combo(l,[...k],false,s)).join('');
+const sys=[['Lock Nav','REI','вкл / выкл'],['Lock Mouse','ATY','вкл / выкл'],['Lock BT','AESO','вкл / выкл'],['BT Clear','RYTI','стереть текущий профиль']];
+document.getElementById('c-sys').innerHTML=sys.map(([l,k,s])=>combo(l,[...k],false,s)).join('')+
+  `<div class="combo"><span class="mini" style="grid-template-columns:repeat(2,26px);grid-template-rows:repeat(2,11px)"><i class="on"></i><i class="on"></i></span><span class="lbl">F1–F12<small>«−» + Tab, один раз</small></span></div>`;
+
+/* 4x2 layer card */
+const key=(t,cls='')=>`<div class="k ${cls}"><span class="t">${t}</span></div>`;
+function card(title,howKeys,howText,cells,extra){
+  const g=cells.map(c=>c==null?key('','none'):c==='HOLD'?key('HOLD','held'):key(c)).join('');
+  return `<div class="lay"><h3>${title}</h3><div class="how">${mini([...howKeys],'howmini','on')}${howText}</div><div class="g4">${g}</div>${extra?`<div class="extra">${extra}</div>`:''}</div>`;
+}
+document.getElementById('holds').innerHTML=[
+  card('Цифры','S','держать S',['HOLD','3','2','1',null,'6','5','4'],
+    '<span><b>7</b> = 1+2</span><span><b>8</b> = 2+3</span><span><b>9</b> = 4+5</span><span><b>0</b> = 5+6</span><span><b>.</b> = 1+5</span><span><b>,</b> = 1+6</span><span><b>Enter</b> = 1+4</span><span>внутр. колонка: <b>−</b> / <b>/</b>, низ: <b>Tab</b> <b>:</b></span>'),
+  card('Скобки','A','держать A',['{','(',')','HOLD','}','[',']',null]),
+  card('Символы','E','держать E',['`',';','\\','!','=','-','?','HOLD']),
+  card('Custom','O','держать O',[null,'VOL UP','INS','MUTE','HOLD','VOL DN','PRT SC','SHIFT once'])
+].join('');
+document.getElementById('locks').innerHTML=[
+  card('Lock Nav','REI','комбо R+E+I',['PGUP','HOME','UP','END','PGDN','LEFT','DOWN','RIGHT'],'<span>нижний ряд и большие пальцы как на основном слое</span>'),
+  card('Lock Mouse','ATY','комбо A+T+Y',['SCROLL UP','BTN2','UP','BTN1','SCROLL DOWN','LEFT','DOWN','RIGHT']),
+  card('Lock BT','AESO','комбо A+E+S+O',['BLE','BT 2','BT 1','BT 0','USB','BT 5','BT 4','BT 3'],'<span>большие пальцы: <b>Bootloader</b>, <b>Reset</b></span>')
+].join('');
+
+/* full Totem board: 19 positions */
+function board(arr){
+  const cell=(c)=>{
+    if(c==null) return key('','none');
+    if(typeof c==='string') return key(c);
+    const [t,o]=c;
+    return `<div class="k ${o.cls||''}"><span class="t${o.big?' big':''}">${t}</span>${o.h?`<span class="h">${o.h}</span>`:''}</div>`;
+  };
+  const r1=arr.slice(0,5),r2=arr.slice(5,10),r3=arr.slice(10,16),th=arr.slice(16,19);
+  return `<div class="k none" aria-hidden="true"></div>${r1.map(cell).join('')}`+
+         `<div class="k none" aria-hidden="true"></div>${r2.map(cell).join('')}`+
+         r3.map(cell).join('')+
+         `<div class="thumbgap"></div>${th.map(cell).join('')}`;
+}
+const M={cls:'mod'};
+document.getElementById('base').innerHTML=board([
+  ['S',{big:1,h:'Цифры'}],['T',{big:1}],['R',{big:1}],['A',{big:1,h:'Скобки'}],['−',{h:'F1–12 с Tab'}],
+  ['O',{big:1,h:'Custom'}],['I',{big:1}],['Y',{big:1}],['E',{big:1,h:'Символы'}],['Tab',{h:'F1–12 с −'}],
+  ['GUI',M],null,'@','DEL','=',['ALT',M],
+  ['HOLD',{cls:'held',h:'Big Symbol'}],['CTRL',M],['SHIFT',M]
+]);
+const bigs=[
+  ['Big Symbol','держать левый большой палец',[
+    '^','{','}','#','`',
+    '&','(',')','$','\\',
+    ['GUI',M],'*','[',']','%','|',
+    ['HOLD',{cls:'held'}],';',null]],
+  ['F1–F12','комбо «−» + Tab, слой на одно нажатие',[
+    'F4','F3','F2','F1',null,
+    'F8','F7','F6','F5',null,
+    ['GUI',M],'F12','F11','F10','F9',['ALT',M],
+    null,['CTRL',M],['SHIFT',M]]]
+];
+document.getElementById('bigs').innerHTML=bigs.map(([t,h,a])=>`<div class="lay wide"><h3>${t}</h3><div class="how">${h}</div><div class="board">${board(a)}</div></div>`).join('');
+</script>
+
+</body></html>
